@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bootstrap demo</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </head>
+    <body>
+        <style>
+            img {
+                border-radius: 50%;
+                width: 200px;
+                height: 200px;
+            }
+            #cont1{
+                border-right: 1px solid rgb(30, 32, 32);
+            }
+            #cont2{
+                border-left: 1px solid rgb(30, 32, 32);
+            }
+        </style>
+        <div class="container" id="content1" style="border: 1px solid  #000000;">
+            <nav class="navbar navbar-expand-lg bg-warning">
+                <div class="container-fluid">
+                    <img src="{{img}}" alt="Avatar">
+                    <a class="navbar-brand text-black me-auto mx-3"><h3 id="pname">{{rec.name}}<h6>{{rec.email}}</h6></h3></a>
+                    <a class="navbar-brand text-black mx-3"><h6>📞 {{rec.phone}}<h6>🔗 {{rec.links}}</h6></h6></a>
+                </div>
+            </nav>
+            <div class="row my-2">
+                <div class="col" id="cont1">
+                    <div class="row">
+                        <div class="container">
+                            <h3>About Me : <h6>{{rec.about}}</h6></h3>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="container">
+                            <h4>My Skill Set</h4>
+                            <ul>
+                                {% for skill in skills %}
+                                    <li><a class="dropdown-item">{{skill}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"  id="cont2">
+                    <div class="row">
+                        <div class="container">
+                            <h4>My Projects</h4>
+                            <ul>
+                                {% for exp in exps %}
+                                    <li><a class="dropdown-item">{{exp}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>                        
+                    </div>
+                    <div class="row my-3">
+                        <div class="container">
+                            <h4>University Education : </h4>
+                            <h6>{{rec.bpass}} - {{rec.bachelors}} from {{rec.bcollege}} with {{rec.bpercent}}% passing marks</h6>
+                            <h4>School Education : </h4>
+                            <h6>{{rec.spass}} - {{rec.stream}} from {{rec.school}} with {{rec.spercent}}% passing marks</h6>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="text-center">
+            <button type="button" onclick="download()" class="btn btn-warning btn-lg my-2">Download</button>         
+        </div>
+        <script>
+            const download = () =>{
+                let element = document.getElementById("content1")
+                let p_name = document.getElementById("pname").innerHTML
+                var opt = 
+			    {
+			        margin:       1,
+			        filename:     `${p_name}_resume.pdf`,
+			        image:        { type: 'jpeg', quality: 1 },
+			        html2canvas:  { scale: 1},
+			        jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' }
+			    };
+            
+			    // New Promise-based usage:
+			    html2pdf().set(opt).from(element).save();
+
+            }
+        </script>      
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    </body>
+</html>
