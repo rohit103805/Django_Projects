@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title></title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+		<div class="container-fluid">
+			<a class="navbar-brand"><h4>{{section}}</h4></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand" tabindex="-1" aria-disabled="false">👤 {{user}}</a>
+		</div>
+	</nav>
+
+    <div class="container">
+        <div class="col mt-5">
+            <div class="card mb-3" style="max-width: auto; height: auto; background-color: #fce669">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{product.image.url}}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h1 class="card-title">{{product.name}}</h1>
+                            <p class="card-text">{{product.desc}}</p>
+                            <h4 class="card-text">Rs {{product.price}}/-</h4>
+                            <form action="payments" method="post">                                
+                                {% csrf_token %}
+                                <input type="hidden" name="prod_name" value="{{product.name}}">
+                                <input type="hidden" name="prod_id" value="{{sec}}{{product.id}}">
+                                <input type="hidden" name="price" value="{{product.price}}">
+                                <input type="hidden" name="image" value="{{product.image.url}}">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" value="S" name="size">
+                                    <label class="form-check-label" for="inlineCheckbox1"><h6>S</h6></label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" value="M" name="size">
+                                    <label class="form-check-label" for="inlineCheckbox2"><h6>M</h6></label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" value="XL" name="size">
+                                    <label class="form-check-label" for="inlineCheckbox3"><h6>XL</h6></label>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Text"><h6>Units to be ordered</h6></label>
+                                    <input type="number" name="units" required="true">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Text" class="form-label"><h6>Delivery Address (with pincode)</h6></label>
+                                    <input type="text" class="form-control" name="address" required="true">
+                                </div>
+                                <input type = "submit" value="Order" class="btn btn-danger">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
